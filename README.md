@@ -1,4 +1,4 @@
-# atom-quickjump package
+# Atom QuickJump
 
 A short description of your package.
 

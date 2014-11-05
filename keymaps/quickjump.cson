@@ -7,5 +7,13 @@
 
 # For more detailed documentation see
 # https://atom.io/docs/latest/advanced/keymaps
-'.workspace':
-  'ctrl-alt-o': 'atom-quickjump:toggle'
+
+'.platform-darwin .editor':
+  'cmd-;': 'quickjump:toggle'
+'.platform-win32 .editor':
+  'ctrl-;': 'quickjump:toggle'
+'.platform-linux .editor':
+  'ctrl-;': 'quickjump:toggle'
+
+'.quickjump':
+  'escape': 'quickjump:cancel'

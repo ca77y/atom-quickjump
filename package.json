@@ -1,10 +1,10 @@
 {
-  "name": "atom-quickjump",
-  "main": "./lib/atom-quickjump",
+  "name": "QuickJump",
+  "main": "./lib/quickjump",
   "version": "0.0.0",
   "description": "A short description of your package",
   "activationCommands": {
-    "atom-workspace": "atom-quickjump:toggle"
+    "atom-workspace": "quickjump:toggle"
   },
   "repository": "https://github.com/atom/atom-quickjump",
   "license": "MIT",

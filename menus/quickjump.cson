@@ -2,19 +2,19 @@
 'context-menu':
   'atom-text-editor': [
     {
-      'label': 'Toggle atom-quickjump'
-      'command': 'atom-quickjump:toggle'
+      'label': 'Toggle QuickJump'
+      'command': 'quickjump:toggle'
     }
   ]
 'menu': [
   {
     'label': 'Packages'
     'submenu': [
-      'label': 'atom-quickjump'
+      'label': 'QuickJump'
       'submenu': [
         {
           'label': 'Toggle'
-          'command': 'atom-quickjump:toggle'
+          'command': 'quickjump:toggle'
         }
       ]
     ]
