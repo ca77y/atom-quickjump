@@ -1,31 +1,58 @@
+_ = require 'underscore-plus'
+{$, EditorView, View} = require 'atom'
+
 module.exports =
-class QuickjumpView
-  constructor: (serializeState) ->
-    # Create root element
-    @element = document.createElement('div')
-    @element.classList.add('quickjump',  'overlay', 'from-top')
+class QuickjumpView extends View
+  @activate: -> new GoToLineView
 
-    # Create message element
-    message = document.createElement('div')
-    message.textContent = "The QuickJump package is Alive! It's ALIVE!"
-    message.classList.add('message')
-    @element.appendChild(message)
+  @content: ->
+    @div class: 'select-list popover-list quickjump', =>
+      @subview 'miniEditor', new EditorView(mini: yes)
 
-    # Register command that toggles this view
-    atom.commands.add 'atom-workspace', 'quickjump:toggle': => @toggle()
+  initialize: (@editorView) ->
+    @css
+      width: '50px'
+      'min-width': '50px'
+    {@editor} = @editorView
 
-  # Returns an object that can be retrieved when package is activated
-  serialize: ->
+    @handleEvents()
 
-  # Tear down any state and detach
-  destroy: ->
-    @element.remove()
+  handleEvents: ->
+    @on 'core:confirm', => @confirm()
+    @on 'core:cancel', => @detach()
 
-  # Toggle the visibility of this view
-  toggle: ->
-    console.log 'QuickJumpView was toggled!'
+    @subscribeToCommand @editorView, 'quickjump:toggle', =>
+      if @hasParent()
+        @detach()
+      else
+        @attach()
 
-    if @element.parentElement?
-      @element.remove()
+  attach: ->
+    @editorView.appendToLinesView(this)
+    @setPosition()
+    @miniEditor.focus()
+
+  confirm: ->
+    @detach()
+
+  setPosition: ->
+    {left, top} = @editorView.pixelPositionForScreenPosition @editor.getCursorScreenPosition()
+    height = @outerHeight()
+    potentialTop = top + @editorView.lineHeight
+    @css
+      left: left
+      top: potentialTop
+      bottom: 'inherit'
+
+  restoreFocus: ->
+    if @previouslyFocusedElement?.isOnDom()
+      @previouslyFocusedElement.focus()
     else
-      atom.workspaceView.append(@element)
+      atom.workspaceView.focus()
+
+  detach: ->
+    return unless @hasParent()
+    miniEditorFocused = @miniEditor.isFocused
+    @miniEditor.setText('')
+    super
+    @restoreFocus() if miniEditorFocused

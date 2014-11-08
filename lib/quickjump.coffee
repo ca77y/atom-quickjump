@@ -1,13 +1,21 @@
+_ = require 'underscore-plus'
 QuickjumpView = require './quickjump-view'
 
 module.exports =
-  quickjumpView: null
+  quickjumpViews: []
+  editorSubscription: null
 
-  activate: (state) ->
-    @quickjumpView = new AtomQuickjumpView(state.quickjumpViewState)
+  activate: ->
+    @editorSubscription = atom.workspaceView.eachEditorView (editor) =>
+      if editor.attached and not editor.mini
+        quickjumpView = new QuickjumpView(editor)
+        editor.on 'editor:will-be-removed', =>
+          quickjumpView.remove() unless quickjumpView.hasParent()
+          _.remove(@quickjumpViews, quickjumpView)
+        @quickjumpViews.push(quickjumpView)
 
   deactivate: ->
-    @quickjumpView.destroy()
-
-  serialize: ->
-    quickjumpViewState: @quickjumpView.serialize()
+    @editorSubscription?.off()
+    @editorSubscription = null
+    @quickjumpViews.forEach (quickjumpView) -> quickjumpView.remove()
+    @quickjumpViews = []

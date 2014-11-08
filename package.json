@@ -1,16 +1,17 @@
 {
   "name": "QuickJump",
   "main": "./lib/quickjump",
-  "version": "0.0.0",
+  "version": "0.0.1",
   "description": "A short description of your package",
-  "activationCommands": {
-    "atom-workspace": "quickjump:toggle"
+  "activationEvents": {
+    "quickjump:toggle": ".editor"
   },
   "repository": "https://github.com/atom/atom-quickjump",
   "license": "MIT",
   "engines": {
-    "atom": ">0.50.0"
+    "atom": "*"
   },
   "dependencies": {
+    "underscore-plus": "1.x"
   }
 }
