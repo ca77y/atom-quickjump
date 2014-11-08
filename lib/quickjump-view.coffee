@@ -3,8 +3,6 @@ _ = require 'underscore-plus'
 
 module.exports =
 class QuickjumpView extends View
-  @activate: -> new GoToLineView
-
   @content: ->
     @div class: 'select-list popover-list quickjump', =>
       @subview 'miniEditor', new EditorView(mini: yes)
@@ -14,7 +12,6 @@ class QuickjumpView extends View
       width: '50px'
       'min-width': '50px'
     {@editor} = @editorView
-
     @handleEvents()
 
   handleEvents: ->
@@ -27,10 +24,27 @@ class QuickjumpView extends View
       else
         @attach()
 
+    @miniEditor.on 'keydown', (event) =>
+      code = event.keyCode or event.which
+      char = String.fromCharCode(code)
+      text = @miniEditor.getText()
+      if '0' <= char <= '9' and text
+        event.preventDefault()
+        event.stopPropagation()
+        @confirm()
+
+
   attach: ->
     @editorView.appendToLinesView(this)
     @setPosition()
     @miniEditor.focus()
+
+  detach: ->
+    return unless @hasParent()
+    miniEditorFocused = @miniEditor.isFocused
+    @miniEditor.setText('')
+    super
+    @restoreFocus() if miniEditorFocused
 
   confirm: ->
     @detach()
@@ -49,10 +63,3 @@ class QuickjumpView extends View
       @previouslyFocusedElement.focus()
     else
       atom.workspaceView.focus()
-
-  detach: ->
-    return unless @hasParent()
-    miniEditorFocused = @miniEditor.isFocused
-    @miniEditor.setText('')
-    super
-    @restoreFocus() if miniEditorFocused

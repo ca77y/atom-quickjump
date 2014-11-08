@@ -14,8 +14,3 @@
   'ctrl-;': 'quickjump:toggle'
 '.platform-linux .editor':
   'ctrl-;': 'quickjump:toggle'
-
-'.quickjump .mini.editor input':
-  'escape': 'quickjump:cancel'
-'.quickjump .mini.editor input':
-  'enter': 'core:confirm'
