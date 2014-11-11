@@ -2,11 +2,11 @@
   "name": "QuickJump",
   "main": "./lib/quickjump",
   "version": "0.1.0",
-  "description": "A short description of your package",
+  "description": "Jump cursor to specific position in a file.",
   "activationEvents": {
     "quickjump:toggle": ".editor"
   },
-  "repository": "https://github.com/atom/atom-quickjump",
+  "repository": "https://github.com/ca77y/atom-quickjump",
   "license": "MIT",
   "engines": {
     "atom": "*"
