@@ -23,8 +23,8 @@ class QuickjumpView extends View
       else
         @attach()
 
-    @miniEditor.on 'blur', =>
-      @detach()
+    # @miniEditor.on 'blur', =>
+    #   @detach()
 
     @miniEditor.on 'keydown', (event) =>
       code = event.keyCode or event.which
@@ -37,8 +37,10 @@ class QuickjumpView extends View
 
 
     @miniEditor.on 'keyup', (event) =>
-      code = event.keyCode or event.which
+      console.log event
+      # code = event.keyCode or event.which
       text = @miniEditor.getText()
+      console.log text
       if text
           @findTargets(text)
       else
@@ -94,8 +96,9 @@ class QuickjumpView extends View
 
   confirm: (idx)->
     @detach()
-    target = targets[idx]
-    @editor.setCursorBufferPosition target
+    if targets.length > 0
+      target = targets[idx]
+      @editor.setCursorBufferPosition target
 
   setPosition: ->
     {left, top} = @editorView.pixelPositionForScreenPosition @editor.getCursorScreenPosition()
