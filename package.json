@@ -1,7 +1,7 @@
 {
   "name": "QuickJump",
   "main": "./lib/quickjump",
-  "version": "0.0.1",
+  "version": "0.1.0",
   "description": "A short description of your package",
   "activationEvents": {
     "quickjump:toggle": ".editor"

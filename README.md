@@ -1,5 +1,10 @@
 # QuickJump
 
-A short description of your package.
+QuickJump for Atom inspired by [Intellij's QuickJump](https://plugins.jetbrains.com/plugin/6311?pr=phpStorm).
+Jump cursor to specific position in a file.
 
-![A screenshot of your spankin' package](https://f.cloud.github.com/assets/69169/2290250/c35d867a-a017-11e3-86be-cd7c5bf3ff9b.gif)
+# Usage
+
+1. `cmd+;` on Mac, `crtl+;` rest
+2. start typing the text to jump to
+3. hit key displayed above the text (`esc` or `cmd+;` to hide)
