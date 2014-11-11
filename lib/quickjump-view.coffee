@@ -23,9 +23,6 @@ class QuickjumpView extends View
       else
         @attach()
 
-    # @miniEditor.on 'blur', =>
-    #   @detach()
-
     @miniEditor.on 'keydown', (event) =>
       code = event.keyCode or event.which
       text = @miniEditor.getText()
@@ -37,10 +34,7 @@ class QuickjumpView extends View
 
 
     @miniEditor.on 'keyup', (event) =>
-      console.log event
-      # code = event.keyCode or event.which
       text = @miniEditor.getText()
-      console.log text
       if text
           @findTargets(text)
       else
