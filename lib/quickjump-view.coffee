@@ -14,7 +14,7 @@ class QuickjumpView extends View
     @handleEvents()
 
   handleEvents: ->
-    @on 'core:confirm', => @confirm(0)
+    @on 'core:confirm', (event) => @confirm(0, event.shiftKey)
     @on 'core:cancel', => @detach()
 
     @subscribeToCommand @editorView, 'quickjump:toggle', =>
@@ -25,15 +25,26 @@ class QuickjumpView extends View
 
     @miniEditor.on 'keydown', (event) =>
       code = event.keyCode or event.which
+      # shift key
+      if code == 16
+        return
       text = @miniEditor.getText()
       # 1 ot 9 key
       if 48 < code < 58 and text
         event.preventDefault()
         event.stopPropagation()
-        @confirm(code - 48)
+        @confirm(code - 48, event.shiftKey)
+      if code == 13 and text
+        event.preventDefault()
+        event.stopPropagation()
+        @confirm(0, event.shiftKey)
 
 
     @miniEditor.on 'keyup', (event) =>
+      code = event.keyCode or event.which
+      # shift key
+      if code == 16
+        return
       text = @miniEditor.getText()
       if text
           @findTargets(text)
@@ -88,11 +99,13 @@ class QuickjumpView extends View
     @restoreFocus() if miniEditorFocused
     @clearJumps()
 
-  confirm: (idx)->
+  confirm: (idx, shifted)->
     @detach()
     if targets.length > 0
       target = targets[idx]
       @editor.setCursorBufferPosition target
+      if shifted
+        @editor.selectToEndOfWord()
 
   setPosition: ->
     {left, top} = @editorView.pixelPositionForScreenPosition @editor.getCursorScreenPosition()

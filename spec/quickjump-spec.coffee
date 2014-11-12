@@ -18,7 +18,7 @@ describe "QuickJump", ->
 
     runs ->
       atom.workspaceView.simulateDomAttachment()
-      activationPromise = atom.packages.activatePackage('quickjump')
+      activationPromise = atom.packages.activatePackage('QuickJumpPlus')
 
   describe "@activate()", ->
     it "activates quickjump on all existing and future editors (but not on quickjump's own mini editor)", ->
@@ -111,10 +111,22 @@ describe "QuickJump view", ->
       quickjump.attach()
       miniEditor.setText 'sort'
       miniEditor.trigger 'keyup'
-      event = $.Event('keydown');
-      event.which = 49;
+      event = $.Event('keydown')
+      event.which = 49
       miniEditor.trigger event
 
       pos = quickjump.editor.getCursorBufferPosition()
       expect(pos.row).toEqual 1
       expect(pos.column).toEqual 6
+
+    it "should jump and select when shit pressed", ->
+      quickjump.attach()
+      miniEditor.setText 'sor'
+      miniEditor.trigger 'keyup'
+      event = $.Event('keydown')
+      event.which = 49
+      event.shiftKey = 1
+      miniEditor.trigger event
+
+      selection = quickjump.editor.getSelectedText()
+      expect(selection).toEqual 'sort'
