@@ -1,7 +1,7 @@
 # QuickJump
 
 QuickJump for Atom inspired by [Intellij's QuickJump](https://plugins.jetbrains.com/plugin/6311?pr=phpStorm).
-Jump cursor to specific position in a file.
+Jump cursor to a specific position in a file.
 
 # Usage
 
