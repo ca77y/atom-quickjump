@@ -1,8 +1,8 @@
 {
-  "name": "QuickJump",
+  "name": "QuickJumpPlus",
   "main": "./lib/quickjump",
   "version": "0.1.2",
-  "description": "Jump cursor to specific position in a file.",
+  "description": "Jump cursor to a specific position in a file.",
   "activationEvents": {
     "quickjump:toggle": ".editor"
   },
