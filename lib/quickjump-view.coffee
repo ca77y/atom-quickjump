@@ -57,7 +57,7 @@ class QuickjumpView extends View
     buffer = @editor.getBuffer()
     cursor = @editor.getCursorBufferPosition()
     targets = targets.concat(@findTargetsInLine buffer.lines[cursor.row], cursor.row, text)
-    for idx in [1..buffer.lines.length/2] when targets.length < 11
+    for idx in [1..buffer.lines.length] when targets.length < 11 and idx < 200
       upPos = cursor.row - idx
       downPos = cursor.row + idx
       if upPos > -1
