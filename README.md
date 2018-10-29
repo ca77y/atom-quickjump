@@ -1,3 +1,5 @@
+THIS IS OLD AND NOT MAINTAINED
+
 # QuickJump
 
 QuickJump for Atom inspired by [Intellij's QuickJump](https://plugins.jetbrains.com/plugin/6311?pr=phpStorm).
